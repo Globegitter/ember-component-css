@@ -49,6 +49,7 @@
     "broccoli-funnel": "^0.2.2",
     "symlink-or-copy": "^1.0.1",
     "css": "^2.2.0",
+    "node-sass": "^3.0.0-pre",
     "broccoli-merge-trees": "^0.2.1"
   }
 }
