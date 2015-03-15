@@ -8,6 +8,7 @@ var fs = require('fs');
 var path = require('path');
 var symlinkOrCopy = require('symlink-or-copy');
 var css = require('css');
+var sass = require('sass');
 
 var guid = function fn (n) {
   return n ?
@@ -22,7 +23,7 @@ function BrocComponentCssPreprocessor(inputTree) {
 BrocComponentCssPreprocessor.prototype = Object.create(Writer.prototype);
 BrocComponentCssPreprocessor.prototype.constructor = BrocComponentCssPreprocessor;
 
-var CSS_SUFFIX = /\.css$/;
+var CSS_SUFFIX = /\.scss$/;
 
 var podLookup = Object.create(null);
 
@@ -54,7 +55,7 @@ BrocComponentCssPreprocessor.prototype.write = function (readTree, destDir) {
       if (!CSS_SUFFIX.test(filepath)) { continue; }
       var podName = filepath.split('/')[0];
       var podGuid = podName + '-' + guid();
-      var cssFileContents = fs.readFileSync(path.join(srcDir, filepath)).toString();
+      var cssFileContents = sass.renderSync({ file: path.join(srcDir, filepath) }).css.toString();
       var parsedCss = css.parse(cssFileContents);
       var transformedParsedCSS = transformCSS(podGuid, parsedCss);
       buffer.push(css.stringify(transformedParsedCSS));
