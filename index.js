@@ -8,7 +8,7 @@ var fs = require('fs');
 var path = require('path');
 var symlinkOrCopy = require('symlink-or-copy');
 var css = require('css');
-var sass = require('sass');
+var sass = require('node-sass');
 
 var guid = function fn (n) {
   return n ?
